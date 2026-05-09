@@ -1,0 +1,36 @@
+version: 1
+
+sources:
+  - name: goodreads
+    description: ""
+    database: "{{ env_var('DBT_ENVIRONMENTS', 'FAIL') }}_BRONZE_LIBROS"
+    tables:
+      - name: reviews
+        columns:
+          - name: user_id
+            data_type: varchar
+          - name: isbn
+            data_type: varchar
+          - name: rating
+            data_type: number
+          - name: rating_description
+            data_type: varchar
+          - name: publish_date
+            data_type: date
+          - name: last_modified
+            data_type: date
+
+      - name: users_goodreads
+        columns:
+          - name: id_user
+            data_type: varchar
+          - name: gender
+            data_type: varchar
+          - name: age
+            data_type: number
+          - name: country
+            data_type: varchar
+          - name: province
+            data_type: varchar
+          - name: email
+            data_type: varchar
