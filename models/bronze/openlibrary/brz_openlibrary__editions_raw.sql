@@ -53,6 +53,7 @@
     {'name': 'subject_place', 'type': 'variant'},
     {'name': 'subject_places', 'type': 'variant'},
     {'name': 'subject_time', 'type': 'variant'},
+    {'name': 'revision', 'type': 'int'},
 ] 
 
 %}
