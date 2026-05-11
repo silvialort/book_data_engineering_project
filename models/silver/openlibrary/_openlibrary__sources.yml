@@ -1,0 +1,233 @@
+# ============================================================================
+# _openlibrary__sources.yml
+# ============================================================================
+
+version: 1
+
+sources:
+  - name: openlibrary
+    description: 'Datos procedentes de OpenLibrary'
+    
+    database: "{{ env_var('DBT_ENVIRONMENTS', 'FAIL') }}_BRONZE_LIBROS"  
+    schema: openlibrary
+
+    quoting:
+      database: false
+      schema: false
+      identifier: false
+
+    config:
+      freshness:
+        warn_after:  {count: 8, period: day}
+        error_after: {count: 15, period: day}
+
+
+    tables:
+
+       # ----------------------------------------------------------------------
+       # authors — Autores almacenados en la base de datos
+       # ----------------------------------------------------------------------
+
+      - name: authors
+        description: 'Tabla con los autores registrados en OpenLibrary cuya obra ha recibido una edición o reedición a partir de 2022'
+        columns:
+          - name: original_key
+            description: 'Id único y propio de OL'
+            data_type: varchar
+            data_tests:
+              - unique
+              - not_null
+          - name: name
+            description: 'Nombre del autor'
+            data_type: varchar
+          - name: personal_name
+            description: 'Otra forma de registrar el nombre del autor'
+            data_type: varchar
+          - name: birth_date
+            data_type: varchar
+          - name: death_date
+            data_type: varchar
+          - name: created_at
+            data_type: varchar
+          - name: last_modified
+            data_type: varchar
+
+
+      # ----------------------------------------------------------------------
+      #
+      # brz_openlibrary__editions_raw 
+      #
+      # Tabla realizada sobre editions_raw con las ediciones
+      # publicadas en España desde 2022 en adelante.
+      # ----------------------------------------------------------------------
+
+      - name: brz_openlibrary__editions_raw
+        columns:
+          - name: title
+            data_type: varchar
+          - name: title_prefix
+            data_type: varchar
+          - name: subtitle
+            data_type: varchar
+          - name: authors
+            data_type: variant
+          - name: other_titles
+            data_type: variant
+          - name: by_statement
+            data_type: varchar
+          - name: key
+            data_type: varchar
+          - name: publish_date
+            data_type: varchar
+          - name: copyright_date
+            data_type: varchar
+          - name: edition_name
+            data_type: varchar
+          - name: number_of_pages
+            data_type: number
+          - name: physical_dimensions
+            data_type: varchar
+          - name: physical_format
+            data_type: varchar
+          - name: description
+            data_type: varchar
+          - name: notes
+            data_type: varchar
+          - name: languages
+            data_type: variant
+          - name: genres
+            data_type: variant
+          - name: publishers
+            data_type: variant
+          - name: identifiers
+            data_type: variant
+          - name: table_of_contents
+            data_type: variant
+          - name: work_titles
+            data_type: variant
+          - name: series
+            data_type: variant
+          - name: subjects
+            data_type: variant
+          - name: lccn
+            data_type: variant
+          - name: ocaid
+            data_type: varchar
+          - name: oclc_numbers
+            data_type: variant
+          - name: isbn_10
+            data_type: variant
+          - name: isbn_13
+            data_type: variant
+          - name: dewey_decimal_class
+            data_type: variant
+          - name: lc_classifications
+            data_type: variant
+          - name: contributions
+            data_type: variant
+          - name: publish_places
+            data_type: variant
+          - name: publish_country
+            data_type: varchar
+          - name: distributors
+            data_type: variant
+          - name: first_sentence
+            data_type: varchar
+          - name: weight
+            data_type: varchar
+          - name: location
+            data_type: variant
+          - name: scan_on_demand
+            data_type: boolean
+          - name: collections
+            data_type: variant
+          - name: uris
+            data_type: variant
+          - name: uri_descriptions
+            data_type: variant
+          - name: translation_of
+            data_type: varchar
+          - name: works
+            data_type: variant
+          - name: source_records
+            data_type: variant
+          - name: translated_from
+            data_type: variant
+          - name: scan_records
+            data_type: variant
+          - name: volumes
+            data_type: variant
+          - name: accompanying_material
+            data_type: varchar
+          - name: created
+            data_type: variant
+          - name: last_modified
+            data_type: variant
+          - name: subject_people
+            data_type: variant
+          - name: subject_place
+            data_type: variant
+          - name: subject_places
+            data_type: variant
+          - name: subject_time
+            data_type: variant
+
+
+      # ----------------------------------------------------------------------
+      #
+      # works 
+      #
+      # Tabla con todas las obras publicadas en España o que han recibido una
+      # reedición desde 2022 en adelante
+      # ----------------------------------------------------------------------
+
+      - name: works
+        columns:
+          - name: title
+            data_type: varchar
+          - name: subtitle
+            data_type: varchar
+          - name: authors
+            data_type: varchar
+          - name: translated_titles
+            data_type: varchar
+          - name: subjects
+            data_type: varchar
+          - name: subject_places
+            data_type: varchar
+          - name: subject_times
+            data_type: varchar
+          - name: subject_people
+            data_type: varchar
+          - name: description
+            data_type: varchar
+          - name: dewey_number
+            data_type: varchar
+          - name: lc_classifications
+            data_type: varchar
+          - name: first_sentence
+            data_type: varchar
+          - name: original_languages
+            data_type: varchar
+          - name: other_titles
+            data_type: varchar
+          - name: first_publish_date
+            data_type: varchar
+          - name: links
+            data_type: varchar
+          - name: notes
+            data_type: varchar
+          - name: cover_edition
+            data_type: varchar
+          - name: covers
+            data_type: varchar
+          - name: created_at
+            data_type: varchar
+          - name: last_modified
+            data_type: varchar
+          - name: type
+            data_type: varchar
+          - name: revision
+            data_type: varchar
+          - name: key
+            data_type: varchar

@@ -1,0 +1,75 @@
+# ============================================================================
+# _openlibrary__models.yml
+# ============================================================================
+# Documentación + tests sobre los modelos staging de openlibrary.
+#
+# Comando para ejecutar todos los tests de este grupo:
+#   dbt test --select silver.openlibrary
+# ============================================================================
+
+version: 2
+
+models:
+
+  # --------------------------------------------------------------------------
+  # slv_openlibrary__autores
+  # --------------------------------------------------------------------------
+  - name: slv_openlibrary__autores
+    description: >
+      Staging de autores.
+    columns:
+      - name: id_autor
+        description: Id único de cada autor. Se calcula con la key original de OpenLibrary
+        data_tests:
+          - unique
+          - not_null
+      - name: nombre_autor
+        description: Nombre del autor.
+        data_tests:          
+          - not_null
+      - name: fecha_nacimiento
+        description: Fecha de nacimiento del autor.
+      - name: fecha_fallecimiento
+        description: Fecha de fallecimiento del autor.        
+      - name: ol_created_at
+        description: Fecha de creación del registro en OL
+      - name: ol_last_modified
+        description: Fecha de última modificación del registro en OL
+
+
+  # --------------------------------------------------------------------------
+  # slv_openlibrary__obras
+  # --------------------------------------------------------------------------
+
+  - name: slv_openlibrary__obras
+    description: >
+      Staging de obras.
+    columns:
+      - name: id_obra
+        description: Id único de cada obra. Se calcula con la key original de OpenLibrary
+        data_type: varchar
+        data_tests:
+          - unique
+          - not_null
+      - name: titulo_completo
+        description: Título (y si existe subtítulo) de la obra
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: idioma_original
+        description: Idioma en el que se escribió la obra originalmente
+        data_type: varchar
+      - name: fecha_original_publicacion
+        description: Fecha en el que se publicó originalmente la obra
+        data_type: year
+      - name: ol_created_at
+        description: Fecha de creación del registro en OL
+        data_type: timestamp_ntz
+      - name: ol_last_modified
+        description: Fecha de última modificación del registro en OL
+        data_type: timestamp_ntz
+      
+
+  # --------------------------------------------------------------------------
+  # slv_openlibrary__ediciones
+  # --------------------------------------------------------------------------
