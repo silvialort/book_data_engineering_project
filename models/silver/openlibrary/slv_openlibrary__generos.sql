@@ -5,7 +5,7 @@ source as (
     select 
         distinct subjects 
     from 
-        {{ source('openlibrary', 'brz_openlibrary__editions_raw') }}
+        {{ source('openlibrary', 'editions') }}
 
 ),
 

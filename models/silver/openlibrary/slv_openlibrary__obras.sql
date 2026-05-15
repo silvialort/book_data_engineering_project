@@ -9,13 +9,14 @@ source as (
 clean_table as (
 
     select
-        {{ clean_key('key') }} as id_obra,
+        {{ clean_key('original_key') }} as id_obra,
         UPPER(title) as titulo,
-        UPPER(subtitle) as subtitulo,                        
+        UPPER(subtitle) as subtitulo,        
         {{ clean_key('original_languages') }} as idioma_original,        
         {{ normalize_year('first_publish_date') }} as fecha_original_publicacion,
-        {{ clean_timestamp('created_at') }} as ol_created_at,
-        {{ clean_timestamp('last_modified') }} as ol_last_modified
+        {{ clean_timestamp('ol_created_at') }} as ol_created_at,
+        {{ clean_timestamp('ol_last_modified') }} as ol_last_modified,
+        CAST(revision AS INT) as revision
 
     from source
 
@@ -32,7 +33,8 @@ renamed as (
         idioma_original,        
         fecha_original_publicacion,
         ol_created_at,
-        ol_last_modified
+        ol_last_modified,
+        revision
 
     from clean_table
 
