@@ -21,20 +21,13 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 
 vars:
-  surrogate_key_treat_nulls_as_empty_strings: true 
+  surrogate_key_treat_nulls_as_empty_strings: false 
 
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
 
 models:
   book_de_project:
-    # necesario para deflatten la tabla editions_raw
-    bronze:
-      +materialized: table
-      +database: "{{ env_var('DBT_ENVIRONMENTS', 'FAIL') }}_BRONZE_LIBROS"
-
-      base:
-        +schema: openlibrary
     silver:
       +materialized: view
       +database: "{{ env_var('DBT_ENVIRONMENTS', 'FAIL') }}_SILVER_LIBROS"
@@ -47,3 +40,8 @@ models:
     gold:
       +materialized: table
       +database: "{{ env_var('DBT_ENVIRONMENTS', 'FAIL') }}_GOLD_LIBROS"
+
+      core:
+        +schema: core
+      marts:
+        +schema: marts
