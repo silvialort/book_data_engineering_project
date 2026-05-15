@@ -17,13 +17,13 @@ source as (
 renamed as (
 
     select
-        {{ dbt_utils.generate_surrogate_key(['email']) }} as id_usuario,	    
+        {{ dbt_utils.generate_surrogate_key(['id_user']) }} as id_usuario,	
+        email,     
         {{ dbt_utils.generate_surrogate_key(['gender']) }} as id_genero,
 	    CAST(age AS INT) as edad,
 	    {{ dbt_utils.generate_surrogate_key(['country']) }} as id_pais,
 	    {{ dbt_utils.generate_surrogate_key(['province']) }} as id_provincia,
-	    email,
-        id_user as original_id
+	    
 
     from source
 

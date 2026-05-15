@@ -12,16 +12,54 @@ TRIM(
 
 {% elif valor == 'number' %}
 
-TRY_TO_NUMBER(
-    REGEXP_SUBSTR(
-        {{ columna }},
-        '(\\(#\\s*\\d+\\s*\\)|--\\s*(V\\.?|VOL\\.?|NO\\.?|Nº)?\\s*\\d+|#\\s*\\d+|\\b\\d+\\s*$)',
-        1,
-        1,
-        'i',
-        2
+COALESCE(
+
+    TRY_TO_NUMBER(
+        REGEXP_SUBSTR(
+            {{ columna }},
+            '\\(#\\s*(\\d+)\\s*\\)',
+            1,
+            1,
+            'i',
+            1
+        )
+    ),
+
+    TRY_TO_NUMBER(
+        REGEXP_SUBSTR(
+            {{ columna }},
+            '--\\s*(V\\.?|VOL\\.?|NO\\.?|Nº)?\\s*(\\d+)',
+            1,
+            1,
+            'i',
+            2
+        )
+    ),
+
+    TRY_TO_NUMBER(
+        REGEXP_SUBSTR(
+            {{ columna }},
+            '#\\s*(\\d+)',
+            1,
+            1,
+            'i',
+            1
+        )
+    ),
+
+    TRY_TO_NUMBER(
+        REGEXP_SUBSTR(
+            {{ columna }},
+            '(\\d+)\\s*$',
+            1,
+            1,
+            'i',
+            1
+        )
     )
+
 )
+
 
 {% endif %}
 
