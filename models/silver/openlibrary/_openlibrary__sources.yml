@@ -25,6 +25,7 @@ sources:
     tables:
 
        # ----------------------------------------------------------------------
+       #
        # authors — Autores almacenados en la base de datos
        # ----------------------------------------------------------------------
 
@@ -40,28 +41,36 @@ sources:
           - name: name
             description: 'Nombre del autor'
             data_type: varchar
+            data_tests:
+              - not_null              
           - name: personal_name
             description: 'Otra forma de registrar el nombre del autor'
             data_type: varchar
           - name: birth_date
+            description: 'Año de nacimiento del autor'
             data_type: varchar
           - name: death_date
+            description: 'Año de fallecimiento del autor'
             data_type: varchar
-          - name: created_at
+          - name: ol_created_at
+            description: 'Fecha en la que se creó el registro en OpenLibrary'
             data_type: varchar
-          - name: last_modified
+            data_tests:
+              - not_null              
+          - name: ol_last_modified
+            description: 'Fecha en la que se modificó por última vez el registro en OpenLibrary'
             data_type: varchar
 
 
       # ----------------------------------------------------------------------
       #
-      # brz_openlibrary__editions_raw 
+      # editions
       #
       # Tabla realizada sobre editions_raw con las ediciones
       # publicadas en España desde 2022 en adelante.
       # ----------------------------------------------------------------------
 
-      - name: brz_openlibrary__editions_raw
+      - name: editions
         columns:
           - name: title
             data_type: varchar

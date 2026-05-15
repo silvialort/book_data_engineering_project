@@ -5,7 +5,7 @@
     {'name': 'authors', 'type': 'variant'},
     {'name': 'other_titles', 'type': 'variant'},
     {'name': 'by_statement', 'type': 'string'},    
-    {'name': 'key', 'type': 'string'},    
+    {'name': 'key', 'type': 'string', 'output_name' : 'original_key'},    
     {'name': 'publish_date', 'type': 'string'},
     {'name': 'copyright_date', 'type': 'string'},
     {'name': 'edition_name', 'type': 'string'},
@@ -47,7 +47,7 @@
     {'name': 'scan_records', 'type': 'variant'},
     {'name': 'volumes', 'type': 'variant'},
     {'name': 'accompanying_material', 'type': 'string'},
-    {'name': 'created', 'type': 'variant'},
+    {'name': 'created_at', 'type': 'variant'},
     {'name': 'last_modified', 'type': 'variant'},
     {'name': 'subject_people', 'type': 'variant'},
     {'name': 'subject_place', 'type': 'variant'},
@@ -58,9 +58,19 @@
 
 %}
 
-{{ generate_flatten_table(
-    columna = 'raw_data',
-    fields = edition_fields,
-    origen = 'openlibrary',
-    tabla = 'editions_raw'
-) }}
+with flatten_table as (
+    {{ generate_flatten_table(
+        columna = 'raw_data',
+        fields = edition_fields,
+        origen = 'base',
+        tabla = 'editions_raw'
+    ) }}
+)
+
+
+select 
+    * 
+from 
+    flatten_table 
+where 
+    isbn_13 is not null
