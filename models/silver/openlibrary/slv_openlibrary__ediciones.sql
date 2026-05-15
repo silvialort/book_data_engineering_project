@@ -61,7 +61,7 @@ clean_table as (
         UPPER(subtitle) as subtitulo,
         {{ clean_datetime('publish_date') }} AS fecha_publicacion,
         CAST(number_of_pages AS INT) AS num_paginas,
-        UPPER(TRIM(physical_format)) as id_formato,
+        UPPER(TRIM('physical_format')) AS formato_fisico,
         TRIM((REGEXP_SUBSTR(l.lengua_publicacion, '[^/]+$'))) as lengua_publicacion,
         {{ normalize_series('s.series', 'name') }} as nombre_serie,
         {{ normalize_series('s.series', 'number') }} as num_serie,        
@@ -69,8 +69,7 @@ clean_table as (
         --preferible ignorarlo wtf pasa aquí publish_places,
         c.pais,
         {{ clean_key('works') }} as id_obra,         
-        TRIM((REGEXP_SUBSTR(t.lengua_traduccion, '[^/]+$'))) as lengua_traduccion,
-        translated_from,
+        TRIM((REGEXP_SUBSTR(t.lengua_traduccion, '[^/]+$'))) as lengua_traduccion,        
         {{ clean_timestamp('created_at') }} as ol_created_at,
         {{ clean_timestamp('last_modified') }} as ol_last_modified,
         revision
@@ -88,16 +87,16 @@ surrogates as (
         {{ dbt_utils.generate_surrogate_key(['id'])}} as id_edicion,
         titulo,
         subtitulo,
-        fecha_publicacion,
-        num_paginas,
-        {{ dbt_utils.generate_surrogate_key(['id_formato'])}} as id_formato,
-        {{ dbt_utils.generate_surrogate_key(['lengua_publicacion'])}} as id_lengua_publicacion,        
-        {{ dbt_utils.generate_surrogate_key(['nombre_serie'])}} as id_serie,
-        num_serie,        
+        CAST(fecha_publicacion AS TIMESTAMP_NTZ) as fecha_publicacion,
+        num_paginas,        
+        {{ normalize_physical_format('formato_fisico') }},
+        {{ nullable_surrogate_key(['lengua_publicacion'])}} as id_lengua_publicacion,        
+        {{ nullable_surrogate_key(['nombre_serie'])}} as id_serie,
+        CAST(num_serie AS INT) as num_serie,        
         isbn,
-        {{ dbt_utils.generate_surrogate_key(['pais'])}} as id_pais,    
-        {{ dbt_utils.generate_surrogate_key(['id_obra'])}} as id_obra, 
-        {{ dbt_utils.generate_surrogate_key(['lengua_traduccion'])}} as id_traduccion,         
+        {{ nullable_surrogate_key(['pais'])}} as id_pais,    
+        {{ nullable_surrogate_key(['id_obra'])}} as id_obra,
+        {{ nullable_surrogate_key(['lengua_traduccion'])}} as id_traduccion,         
         ol_created_at,
         ol_last_modified,
         revision
@@ -105,4 +104,22 @@ surrogates as (
     from clean_table
 )
 
-select * from surrogates
+select 
+    id_edicion,
+    titulo,
+    subtitulo,
+    fecha_publicacion,
+    num_paginas,
+    {{ nullable_surrogate_key(['descripcion_formato']) }} as id_formato,
+    id_lengua_publicacion,
+    id_serie,
+    num_serie,
+    isbn,
+    id_pais,
+    id_obra,
+    id_traduccion,
+    ol_created_at,
+    ol_last_modified,
+    revision
+
+from surrogates

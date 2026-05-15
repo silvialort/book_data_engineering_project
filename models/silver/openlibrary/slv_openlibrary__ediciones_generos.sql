@@ -4,7 +4,7 @@ source as (
 
     select
         distinct 
-        key as original_key,
+        original_key,
         subjects
     from
         {{ source('openlibrary', 'editions') }}

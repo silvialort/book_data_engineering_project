@@ -1,0 +1,82 @@
+version: 2
+
+models:
+  - name: slv__paises
+    description: ""
+    columns:
+      - name: id_pais
+        data_type: varchar
+        description: ""
+
+      - name: pais
+        data_type: varchar
+        description: ""
+
+  - name: slv_goodreads__generos
+    description: ""
+    columns:
+      - name: id_genero
+        data_type: varchar
+        description: ""
+
+      - name: genero
+        data_type: varchar
+        description: ""
+
+  - name: slv_goodreads__resenyas
+    description: ""
+    columns:
+      - name: user_id
+        data_type: varchar
+        description: ""
+
+      - name: isbn
+        data_type: varchar
+        description: ""
+
+      - name: valoracion
+        data_type: number
+        description: ""
+
+      - name: descripcion_valoracion
+        data_type: varchar
+        description: ""
+
+      - name: created_at
+        data_type: date
+        description: ""
+
+      - name: last_modified
+        data_type: date
+        description: ""
+
+  - name: slv_goodreads__usuarios
+    description: ""
+    columns:
+      - name: id_usuario
+        data_type: varchar
+        description: ""
+
+      - name: id_genero
+        data_type: varchar
+        description: ""
+
+      - name: edad
+        data_type: number
+        description: ""
+
+      - name: id_pais
+        data_type: varchar
+        description: ""
+
+      - name: id_provincia
+        data_type: varchar
+        description: ""
+
+      - name: email
+        data_type: varchar
+        description: ""
+
+      - name: original_id
+        data_type: varchar
+        description: ""
