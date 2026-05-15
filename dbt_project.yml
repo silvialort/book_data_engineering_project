@@ -33,7 +33,7 @@ models:
       +materialized: table
       +database: "{{ env_var('DBT_ENVIRONMENTS', 'FAIL') }}_BRONZE_LIBROS"
 
-      openlibrary:
+      base:
         +schema: openlibrary
     silver:
       +materialized: view

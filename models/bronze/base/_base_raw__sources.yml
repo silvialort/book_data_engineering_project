@@ -1,9 +1,10 @@
 version: 1
 
 sources:
-  - name: openlibrary
+  - name: base
     description: ""
     database: "{{ env_var('DBT_ENVIRONMENTS', 'FAIL') }}_BRONZE_LIBROS"  
+    schema: openlibrary
     tables:
       - name: editions_raw
         description: "Tabla de las ediciones con el dato recogido en una sola columna de tipo VARIANT"
