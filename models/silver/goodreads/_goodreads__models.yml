@@ -1,16 +1,30 @@
+# ============================================================================
+# _goodreads__models.yml
+# ============================================================================
+# Documentación + tests sobre los modelos staging de goodreads.
+#
+# Comando para ejecutar todos los tests de este grupo:
+#   dbt test --select silver.goodreads
+# ============================================================================
+
 version: 2
 
 models:
   - name: slv__paises
-    description: ""
+    description: "Tabla de países unificada de datos de Goodreads y OpenLibrary"
     columns:
       - name: id_pais
+        description: "Id único y hasheado para cada país"
         data_type: varchar
-        description: ""
-
+        data_tests:
+          - unique
+          - not_null
+      
       - name: pais
+        description: "Nombre del país"
         data_type: varchar
-        description: ""
+        data_tests:
+          - unique
 
   - name: slv_goodreads__generos
     description: ""
@@ -18,13 +32,16 @@ models:
       - name: id_genero
         data_type: varchar
         description: ""
-
+        data_tests:
+          - unique
+          - not_null
+          
       - name: genero
         data_type: varchar
         description: ""
 
   - name: slv_goodreads__resenyas
-    description: ""
+    description: "Tabla con reseñas de Goodreads"
     columns:
       - name: user_id
         data_type: varchar
@@ -51,32 +68,35 @@ models:
         description: ""
 
   - name: slv_goodreads__usuarios
-    description: ""
+    description: "Tabla de usuarios de Goodreads"
     columns:
       - name: id_usuario
-        data_type: varchar
-        description: ""
+        description: "Id único y hasheado del usuario"
+        data_type: varchar        
+        data_tests:
+          - unique
+          - not_null
 
       - name: id_genero
         data_type: varchar
-        description: ""
+        description: "Género del usuario"
 
       - name: edad
         data_type: number
-        description: ""
+        description: "Edad del usuario"
 
       - name: id_pais
         data_type: varchar
-        description: ""
+        description: "Id de país"
 
       - name: id_provincia
-        data_type: varchar
-        description: ""
+        description: "Id de provincia si el país es España"
+        data_type: varchar 
 
       - name: email
+        description: "Email con el que se registró el usuario"
         data_type: varchar
-        description: ""
-
-      - name: original_id
-        data_type: varchar
-        description: ""
+        data_tests:
+          - unique
+          - not_null
+        
