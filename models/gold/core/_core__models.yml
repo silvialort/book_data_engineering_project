@@ -1,0 +1,248 @@
+version: 2
+
+models:
+  - name: dim_autores
+    description: ""
+    columns:
+      - name: id_autor
+        data_type: varchar
+        description: ""
+
+      - name: nombre_autor
+        data_type: varchar
+        description: ""
+
+      - name: fecha_nacimiento
+        data_type: number
+        description: ""
+
+      - name: fecha_fallecimiento
+        data_type: number
+        description: ""
+
+  - name: dim_fechas
+    description: ""
+    columns:
+      - name: date
+        data_type: date
+        description: ""
+
+      - name: year
+        data_type: number
+        description: ""
+
+      - name: month
+        data_type: number
+        description: ""
+
+      - name: month_name
+        data_type: varchar
+        description: ""
+
+      - name: day
+        data_type: number
+        description: ""
+
+      - name: number_week_day
+        data_type: number
+        description: ""
+
+      - name: week_day
+        data_type: varchar
+        description: ""
+
+      - name: quarter
+        data_type: number
+        description: ""
+
+      - name: week_of_year
+        data_type: number
+        description: ""
+
+      - name: year_month
+        data_type: number
+        description: ""
+
+      - name: date_id
+        data_type: number
+        description: ""
+
+      - name: is_weekend
+        data_type: boolean
+        description: ""
+
+  - name: dim_formatos
+    description: ""
+    columns:
+      - name: id_formato
+        data_type: varchar
+        description: ""
+
+      - name: descripcion_formato
+        data_type: varchar
+        description: ""
+
+  - name: dim_lenguas
+    description: ""
+    columns:
+      - name: id_lengua_publicacion
+        data_type: varchar
+        description: ""
+
+      - name: lengua_publicacion
+        data_type: varchar
+        description: ""
+
+  - name: dim_obras
+    description: ""
+    columns:
+      - name: id_obra
+        data_type: varchar
+        description: ""
+
+      - name: titulo_completo
+        data_type: varchar
+        description: ""
+
+      - name: fecha_original_publicacion
+        data_type: varchar
+        description: ""
+
+  - name: dim_paises
+    description: ""
+    columns:
+      - name: id_pais
+        data_type: varchar
+        description: ""
+
+      - name: pais
+        data_type: varchar
+        description: ""
+
+  - name: dim_series
+    description: ""
+    columns:
+      - name: id_serie
+        data_type: varchar
+        description: ""
+
+      - name: nombre_serie
+        data_type: varchar
+        description: ""
+
+  - name: dim_usuarios
+    description: ""
+    columns:
+      - name: id_usuario
+        data_type: varchar
+        description: ""
+
+      - name: id_genero
+        data_type: varchar
+        description: ""
+
+      - name: edad
+        data_type: number
+        description: ""
+
+      - name: id_pais
+        data_type: varchar
+        description: ""
+
+      - name: id_provincia
+        data_type: varchar
+        description: ""
+
+  - name: fct_resenyas
+    description: ""
+    columns:
+      - name: id_resenya
+        data_type: varchar
+        description: ""
+
+      - name: id_usuario
+        data_type: varchar
+        description: ""
+
+      - name: isbn
+        data_type: varchar
+        description: ""
+
+      - name: valoracion
+        data_type: number
+        description: ""
+
+      - name: created_at
+        data_type: date
+        description: ""
+
+      - name: id_lengua_publicacion
+        data_type: varchar
+        description: ""
+
+      - name: id_formato
+        data_type: varchar
+        description: ""
+
+      - name: edad
+        data_type: number
+        description: ""
+
+      - name: id_pais
+        data_type: varchar
+        description: ""
+
+      - name: id_provincia
+        data_type: varchar
+        description: ""
+
+      - name: id_genero
+        data_type: varchar
+        description: ""
+
+  - name: fct_tendencia_editorial
+    description: ""
+    columns:
+      - name: id_edicion
+        data_type: varchar
+        description: ""
+
+      - name: titulo
+        data_type: varchar
+        description: ""
+
+      - name: fecha_publicacion
+        data_type: timestamp_ntz
+        description: ""
+
+      - name: id_formato
+        data_type: varchar
+        description: ""
+
+      - name: id_lengua_publicacion
+        data_type: varchar
+        description: ""
+
+      - name: id_serie
+        data_type: varchar
+        description: ""
+
+      - name: num_serie
+        data_type: number
+        description: ""
+
+      - name: isbn
+        data_type: varchar
+        description: ""
+
+      - name: id_pais
+        data_type: varchar
+        description: ""
+
+      - name: id_obra
+        data_type: varchar
+        description: ""
+
+      - name: id_traduccion
+        data_type: varchar
+        description: ""

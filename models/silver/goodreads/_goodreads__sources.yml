@@ -1,10 +1,20 @@
+# ============================================================================
+# _goodreads__sources.yml
+# ============================================================================
+
 version: 1
 
 sources:
   - name: goodreads
-    description: ""
+    description: "Origen de datos de la plataforma de reseñas Goodreads"
     database: "{{ env_var('DBT_ENVIRONMENTS', 'FAIL') }}_BRONZE_LIBROS"
     tables:
+
+       # ----------------------------------------------------------------------
+       #
+       # reviews — Reseñas de usuarios de Goodreads
+       # ----------------------------------------------------------------------
+
       - name: reviews
         columns:
           - name: user_id
@@ -19,6 +29,11 @@ sources:
             data_type: date
           - name: last_modified
             data_type: date
+
+      # ----------------------------------------------------------------------
+      #
+      # users_goodreads — Usuarios de la plataforma de Goodreads
+      # ----------------------------------------------------------------------
 
       - name: users_goodreads
         columns:
